@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { SearchBar } from './SearchBar';
+import { Loader } from './Loader';
 import { ImageGallery } from './ImageGallery';
 import { Button } from './Button';
 
@@ -10,6 +11,7 @@ export class App extends Component {
     query: '',
     images: [],
     page: 1,
+    isLoading: false,
   };
 
   componentDidMount = () => {
@@ -32,6 +34,8 @@ export class App extends Component {
   };
 
   fetchImages = async () => {
+    this.setState({ isLoading: true });
+
     try {
       const { query, page } = this.state;
 
@@ -45,11 +49,15 @@ export class App extends Component {
       this.setState(prevState => ({
         ...prevState,
         images: data.hits,
+        isLoading: false,
       }));
 
       console.log(this.state.images);
     } catch (error) {
       console.log(error);
+      this.setState({
+        isLoading: false,
+      });
     }
   };
 
@@ -62,7 +70,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images } = this.state;
+    const { images, isLoading } = this.state;
 
     return (
       <>
@@ -71,9 +79,13 @@ export class App extends Component {
             this.handleSubmit(query);
           }}
         />
+        {isLoading && <Loader />}
+
         <ImageGallery images={images} />
         {/* button have to be the last */}
-        <Button onClick={this.handleClick} />
+        {images.length > 0 && !isLoading && (
+          <Button onClick={this.handleClick} />
+        )}
       </>
     );
   }
