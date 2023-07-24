@@ -30,7 +30,10 @@ export class App extends Component {
   };
 
   handleSubmit = newQuery => {
-    this.setState({ query: newQuery });
+    this.setState({
+      page: 1,
+      query: newQuery,
+    });
   };
 
   fetchImages = async () => {
