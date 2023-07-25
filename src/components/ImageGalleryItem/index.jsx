@@ -24,7 +24,11 @@ export class ImageGalleryItem extends Component {
     return (
       <>
         {isOpen && (
-          <Modal onClick={this.handleModal} largeImg={largeImageURL} />
+          <Modal
+            onClick={this.handleModal}
+            largeImg={largeImageURL}
+            alt={tags}
+          />
         )}
         <li onClick={this.handleModal}>
           <img className={css.img} src={webformatURL} alt={tags} />
