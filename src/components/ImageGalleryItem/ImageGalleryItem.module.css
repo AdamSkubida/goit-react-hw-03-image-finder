@@ -5,8 +5,8 @@
   transition: 200ms;
 }
 
-img:focus,
-img:hover {
+.img:focus,
+.img:hover {
   transform: scale(1.01);
   transition: 200ms;
   cursor: pointer;

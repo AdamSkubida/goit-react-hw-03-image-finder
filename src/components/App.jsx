@@ -16,7 +16,6 @@ export class App extends Component {
 
   componentDidMount = () => {
     this.fetchImages();
-    console.log(this.state.query);
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -25,7 +24,6 @@ export class App extends Component {
       prevState.page !== this.state.page
     ) {
       this.fetchImages();
-      console.log(this.state.query);
     }
   };
 
@@ -54,8 +52,6 @@ export class App extends Component {
         images: data.hits,
         isLoading: false,
       }));
-
-      console.log(this.state.images);
     } catch (error) {
       console.log(error);
       this.setState({
@@ -69,8 +65,19 @@ export class App extends Component {
       page: prevState.page + 1,
     }));
     this.fetchImages();
-    console.log(`page: ${this.state.page}`);
   };
+
+  // openModal = imageData => {
+  //   if (imageData) {
+  //     this.setState({ isOpen: true });
+  //   }
+  // };
+
+  // closeModal = modalData => {
+  //   if (!modalData) {
+  //     this.setState({ isOpen: false });
+  //   }
+  // };
 
   render() {
     const { images, isLoading } = this.state;
@@ -84,8 +91,12 @@ export class App extends Component {
         />
         {isLoading && <Loader />}
 
-        <ImageGallery images={images} />
-        {/* button have to be the last */}
+        <ImageGallery
+          images={images}
+          // isOpen={isOpen => {
+          //   this.openModal(isOpen);
+          // }}
+        />
         {images.length > 0 && !isLoading && (
           <Button onClick={this.handleClick} />
         )}
