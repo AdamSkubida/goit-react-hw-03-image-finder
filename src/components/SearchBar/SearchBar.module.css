@@ -4,11 +4,6 @@
   padding: 20px;
   background-color: aqua;
   margin-bottom: 30px;
-}
-
-.form {
-  display: flex;
-  flex-direction: row;
   gap: 10px;
 }
 
